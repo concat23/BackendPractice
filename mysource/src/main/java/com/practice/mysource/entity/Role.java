@@ -1,5 +1,6 @@
 package com.practice.mysource.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -11,8 +12,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "cmn_roles")
 public class Role extends Auditable{
+    @Column
     private String name;
     private String authorities;
 }

@@ -42,6 +42,17 @@ services:
       depends_on: mysourcedb
     networks:
       - mysourcenetwork
+  mysourcedb_backup:
+    container_name: MySourceDBBackup
+    image: mysql:latest
+    command: >
+      sh -c 'exec mysqldump -h mysourcedb -u admin -ptakemyhand --no-data mysourcedb > /data/schema.sql && mysqldump -h mysourcedb -u admin -ptakemyhand --no-create-info mysourcedb > /data/data.sql'
+    volumes:
+      - ./src/main/resources/data:/data
+    depends_on:
+      - mysourcedb
+    networks:
+      - mysourcenetwork
 
 networks:
   mysourcenetwork:

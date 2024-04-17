@@ -15,7 +15,7 @@ import static jakarta.persistence.FetchType.EAGER;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "credentials")
+@Table(name = "cmn_credentials")
 public class Credential extends Auditable{
     private String password;
     @OneToOne(targetEntity = User.class, fetch = EAGER)

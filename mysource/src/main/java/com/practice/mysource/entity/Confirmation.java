@@ -23,7 +23,7 @@ import static jakarta.persistence.FetchType.EAGER;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "confirmations")
+@Table(name = "cmn_confirmations")
 public class Confirmation extends Auditable{
     private String key;
     @OneToOne(targetEntity = User.class, fetch = EAGER)
