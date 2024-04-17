@@ -1,13 +1,13 @@
-version: '3.8'
-
 services:
-  mysource_db:
+  mysourcedb:
     container_name: MySourceDB
     image: mysql:latest
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - $HOME/database:/var/lib/mysql
+    ports:
+      - "3305:3306"
     expose:
       - 3306
     environment:
@@ -16,14 +16,11 @@ services:
       MYSQL_PASSWORD: takemyhand
       MYSQL_ROOT_PASSWORD: letmein
       SERVICE_TAGS: prod
-      SERVICE_NAME: mysqldb
-    ports:
-      - 3305:3306
+      SERVICE_NAME: mysourcedb
     networks:
       - mysourcenetwork
-
-  mysource_api:
-    container_name: MySourceApi
+  mysourceapi:
+    container_name: MySourceAPI
     build:
       context: .
       args:
@@ -31,19 +28,18 @@ services:
     image: mysourceapi:v1
     restart: unless-stopped
     env_file:
-      - ${ENV_FILE}
+      - .env.dev
     ports:
       - ${CONTAINER_PORT}:${HOST_PORT}
     expose:
       - ${CONTAINER_PORT}
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysourcedb:3306/mysourcedb
-      SPRING_DATASOURCE_USERNAME: 'admin'
-      SPRING_DATASOURCE_PASSWORD: 'takemyhand'
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: takemyhand
       SERVICE_TAGS: prod
       SERVICE_NAME: springapi
-    depends_on:
-      - mysource_db
+      depends_on: mysourcedb
     networks:
       - mysourcenetwork
 
