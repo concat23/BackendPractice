@@ -1,0 +1,59 @@
+services:
+  mysourcedb:
+    container_name: MySourceDB
+    image: mysql:latest
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - $HOME/database:/var/lib/mysql
+    ports:
+      - "3305:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: mysourcedb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: takemyhand
+      MYSQL_ROOT_PASSWORD: letmein
+      SERVICE_TAGS: prod
+      SERVICE_NAME: mysourcedb
+    networks:
+      - mysourcenetwork
+  mysourceapi:
+    container_name: MySourceAPI
+    build:
+      context: .
+      args:
+        CONTAINER_PORT: ${CONTAINER_PORT}
+    image: mysourceapi:v1
+    restart: unless-stopped
+    env_file:
+      - .env.dev
+    ports:
+      - ${CONTAINER_PORT}:${HOST_PORT}
+    expose:
+      - ${CONTAINER_PORT}
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysourcedb:3306/mysourcedb
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: takemyhand
+      SERVICE_TAGS: prod
+      SERVICE_NAME: springapi
+      depends_on: mysourcedb
+    networks:
+      - mysourcenetwork
+  mysourcedb_backup:
+    container_name: MySourceDBBackup
+    image: mysql:latest
+    command: >
+      sh -c 'exec mysqldump -h mysourcedb -u admin -ptakemyhand --no-data mysourcedb > /data/schema.sql && mysqldump -h mysourcedb -u admin -ptakemyhand --no-create-info mysourcedb > /data/data.sql'
+    volumes:
+      - ./src/main/resources/data:/data
+    depends_on:
+      - mysourcedb
+    networks:
+      - mysourcenetwork
+
+networks:
+  mysourcenetwork:
+    driver: bridge
