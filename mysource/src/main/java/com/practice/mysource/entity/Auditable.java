@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.QAbstractAuditable;
 import org.springframework.util.AlternativeJdkIdGenerator;
 
@@ -34,10 +35,10 @@ public abstract class Auditable {
     private Long updatedBy;
     @NotNull
     @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-    @CreatedDate
-    @Column(name = "updated_at",nullable = false)
+    @LastModifiedDate
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
 

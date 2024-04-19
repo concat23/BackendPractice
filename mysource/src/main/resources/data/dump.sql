@@ -38,6 +38,15 @@ CREATE TABLE `cmn_confirmations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `cmn_confirmations`
+--
+
+LOCK TABLES `cmn_confirmations` WRITE;
+/*!40000 ALTER TABLE `cmn_confirmations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cmn_confirmations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cmn_credentials`
 --
 
@@ -60,6 +69,15 @@ CREATE TABLE `cmn_credentials` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `cmn_credentials`
+--
+
+LOCK TABLES `cmn_credentials` WRITE;
+/*!40000 ALTER TABLE `cmn_credentials` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cmn_credentials` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cmn_roles`
 --
 
@@ -80,6 +98,16 @@ CREATE TABLE `cmn_roles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `cmn_roles`
+--
+
+LOCK TABLES `cmn_roles` WRITE;
+/*!40000 ALTER TABLE `cmn_roles` DISABLE KEYS */;
+INSERT INTO `cmn_roles` VALUES (1,'2024-04-19 06:13:40.612252',0,'f70d7be2-4db2-bf45-b01d-2e81b49968ff','2024-04-19 06:13:40.737165',0,'USER','USER'),(2,'2024-04-19 06:13:40.816551',0,'7dd0abc6-01bd-d74e-ef60-c54682e5baf4','2024-04-19 06:13:40.847923',0,'ADMIN','ADMIN'),(3,'2024-04-19 20:14:47.044901',0,'df956f5f-092f-a52f-f87d-a55e9e2b0e1d','2024-04-19 20:14:47.136817',0,'MANAGER','Manager'),(4,'2024-04-19 20:14:47.198796',0,'ce56419c-572f-4dc7-b3a8-c9bdfa9461b7','2024-04-19 20:14:47.213731',0,'SUPER_ADMIN','Host');
+/*!40000 ALTER TABLE `cmn_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cmn_user_roles`
 --
 
@@ -95,6 +123,15 @@ CREATE TABLE `cmn_user_roles` (
   CONSTRAINT `FK343hfcykm1n4htcidvaksgt7i` FOREIGN KEY (`role_id`) REFERENCES `cmn_roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cmn_user_roles`
+--
+
+LOCK TABLES `cmn_user_roles` WRITE;
+/*!40000 ALTER TABLE `cmn_user_roles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cmn_user_roles` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `cmn_users`
@@ -132,6 +169,15 @@ CREATE TABLE `cmn_users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `cmn_users`
+--
+
+LOCK TABLES `cmn_users` WRITE;
+/*!40000 ALTER TABLE `cmn_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cmn_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `primary_key_seq`
 --
 
@@ -142,6 +188,16 @@ CREATE TABLE `primary_key_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `primary_key_seq`
+--
+
+LOCK TABLES `primary_key_seq` WRITE;
+/*!40000 ALTER TABLE `primary_key_seq` DISABLE KEYS */;
+INSERT INTO `primary_key_seq` VALUES (15);
+/*!40000 ALTER TABLE `primary_key_seq` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -152,4 +208,4 @@ CREATE TABLE `primary_key_seq` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-19 20:24:06
+-- Dump completed on 2024-04-19 20:27:06

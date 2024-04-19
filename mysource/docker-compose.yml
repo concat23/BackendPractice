@@ -28,7 +28,7 @@ services:
     image: mysourceapi:v1
     restart: unless-stopped
     env_file:
-      - .env.dev
+      - ${ENV_FILE}
     ports:
       - ${CONTAINER_PORT}:${HOST_PORT}
     expose:
@@ -46,7 +46,7 @@ services:
     container_name: MySourceDBBackup
     image: mysql:latest
     command: >
-      sh -c 'exec mysqldump -h mysourcedb -u admin -ptakemyhand --no-data mysourcedb > /data/schema.sql && mysqldump -h mysourcedb -u admin -ptakemyhand --no-create-info mysourcedb > /data/data.sql'
+      sh -c 'exec mysqldump -h mysourcedb -u admin -ptakemyhand mysourcedb > /data/dump.sql'
     volumes:
       - ./src/main/resources/data:/data
     depends_on:
