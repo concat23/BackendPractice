@@ -162,9 +162,12 @@ CREATE TABLE `cmn_users` (
   `qr_code_image_uri` varchar(255) DEFAULT NULL,
   `qr_code_secret` varchar(255) DEFAULT NULL,
   `user_id` varchar(255) NOT NULL,
+  `owner_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_phqwivsg7v03uko6x3pg1yjqs` (`email`),
-  UNIQUE KEY `UK_9vlg6hjn9tjro4y2ak30pnoos` (`user_id`)
+  UNIQUE KEY `UK_9vlg6hjn9tjro4y2ak30pnoos` (`user_id`),
+  KEY `fk_user_owner` (`owner_id`),
+  CONSTRAINT `fk_user_owner` FOREIGN KEY (`owner_id`) REFERENCES `cmn_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -195,7 +198,7 @@ CREATE TABLE `primary_key_seq` (
 
 LOCK TABLES `primary_key_seq` WRITE;
 /*!40000 ALTER TABLE `primary_key_seq` DISABLE KEYS */;
-INSERT INTO `primary_key_seq` VALUES (15);
+INSERT INTO `primary_key_seq` VALUES (26);
 /*!40000 ALTER TABLE `primary_key_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -208,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-19 20:27:06
+-- Dump completed on 2024-04-20 22:09:11

@@ -11,8 +11,8 @@ ACTIVE_PROFILE: dev
 
 EMAIL_HOST: smtp.gmail.com
 EMAIL_PORT: 587
-EMAIL_ID: <your-email>
-EMAIL_PASSWORD: <your-password>
+EMAIL_ID: ecosystemprogramminglanguage@gmail.com
+EMAIL_PASSWORD: ainubmlhyfkrbnzy
 VERIFY_EMAIL_HOST: http://localhost:${CONTAINER_PORT}
 
 UI_APP_URL: http://localhost:4200

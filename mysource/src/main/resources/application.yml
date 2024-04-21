@@ -8,8 +8,8 @@ server:
 spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   datasource:
       url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
       password: ${MYSQL_PASSWORD}
@@ -29,7 +29,8 @@ spring:
       init:
         mode: never
         continue-on-error: false
-
+        schema-locations: classpath:data/schema.sql
+        data-locations: classpath:data/data
   mail:
     host: ${EMAIL_HOST}
     port: ${EMAIL_PORT}
