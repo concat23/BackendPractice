@@ -1,6 +1,10 @@
 package com.practice.mysource.constant;
 
 public class Constants {
+
+    public static final String AUTHORITIES ="authorities";
+    public static final String EMPTY_VALUE ="empty";
+    public static final String ROLE ="role";
     public static final String ROLE_PREFIX = "ROLE_";
     public static final String AUTHORITY_DELIMITER = ",";
 

@@ -37,25 +37,32 @@ public class FilterChainConfiguration {
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        return new ProviderManager(daoAuthenticationProvider);
+        MyOwnAuthenticationProvider myOwnAuthenticationProvider = new MyOwnAuthenticationProvider(userDetailsService);
+        return new ProviderManager(myOwnAuthenticationProvider);
     }
 
+//    @Bean
+//    public UserDetailsService userDetailsService(){
+//        UserDetails junior = User.withDefaultPasswordEncoder()
+//                                .username("Junior")
+//                                .password("{noop}abc@#123")
+//                                .roles("USER")
+//                                .build();
+//        UserDetails hanna = User.withDefaultPasswordEncoder()
+//                .username("Hanna")
+//                .password("{noop}abc@#123")
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(List.of(junior,hanna));
+//
+//    }
+
     @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails junior = User.withDefaultPasswordEncoder()
-                                .username("Junior")
-                                .password("abc@#123")
-                                .roles("USER")
-                                .build();
-        UserDetails hanna = User.withDefaultPasswordEncoder()
-                .username("Hanna")
-                .password("abc@#123")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(List.of(junior,hanna));
-
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+        return new InMemoryUserDetailsManager(
+                User.withUsername("Junior").password("{noop}abc@#123").roles("USER").build(),
+                User.withUsername("Hanna").password("{noop}abc@#123").roles("USER").build()
+        );
     }
 }

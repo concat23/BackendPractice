@@ -1,11 +1,14 @@
 package com.practice.mysource.service.impl;
 
+import com.practice.mysource.cache.CacheStore;
+import com.practice.mysource.domain.RequestContext;
 import com.practice.mysource.entity.Confirmation;
 import com.practice.mysource.entity.Credential;
 import com.practice.mysource.entity.Role;
 import com.practice.mysource.entity.User;
 import com.practice.mysource.enumeration.Authority;
 import com.practice.mysource.enumeration.EventType;
+import com.practice.mysource.enumeration.LoginType;
 import com.practice.mysource.event.UserEvent;
 import com.practice.mysource.exception.ApiException;
 import com.practice.mysource.repository.ConfirmationRepository;
@@ -25,6 +28,7 @@ import java.util.Optional;
 
 import static com.practice.mysource.enumeration.EventType.REGISTRATION;
 import static com.practice.mysource.utils.UserUtils.addUser;
+import static java.time.LocalDateTime.now;
 
 @Service
 @Transactional
@@ -37,6 +41,7 @@ public class UserServiceImpl implements UserService {
     private final CredentialRepository credentialRepository;
     private final ConfirmationRepository confirmationRepository;
 //    private final BCryptPasswordEncoder encoder;
+    private final CacheStore<String, Integer> userCache;
     private final ApplicationEventPublisher publisher;
 
     @Override
@@ -58,6 +63,33 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         confirmationRepository.delete(confirmation);
 
+    }
+
+    @Override
+    public void updateLoginAttempt(String email, LoginType loginType) {
+        User user = getUserByEmail(email);
+        RequestContext.setUserId(user.getId());
+        switch (loginType){
+            case LOGIN_ATTEMPT -> {
+                if (userCache.get(user.getEmail()) == null){
+                    user.setLoginAttempts(0);
+                    user.setAccountNonLocked(true);
+                }
+                user.setLoginAttempts(user.getLoginAttempts() + 1);
+                userCache.put(user.getEmail(),user.getLoginAttempts());
+                if (userCache.get(user.getEmail()) > 5){
+                    user.setAccountNonLocked(false);
+                }
+            }
+            case LOGIN_SUCCESS -> {
+                user.setAccountNonLocked(true);
+                user.setLoginAttempts(0);
+                user.setLastLogin(now());
+                userCache.evict(user.getEmail());
+            }
+        }
+
+        userRepository.save(user);
     }
 
     @Override

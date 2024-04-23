@@ -5,6 +5,10 @@ server:
       enabled: false
   port: ${CONTAINER_PORT}
 
+jwt:
+  expiration: ${JWT_EXPIRATION}
+  secret: ${JWT_SECRET}
+
 spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}

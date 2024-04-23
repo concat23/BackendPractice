@@ -15,4 +15,7 @@ EMAIL_ID: ecosystemprogramminglanguage@gmail.com
 EMAIL_PASSWORD: ainubmlhyfkrbnzy
 VERIFY_EMAIL_HOST: http://localhost:${CONTAINER_PORT}
 
+JWT_EXPIRATION: 432_000_000
+JWT_SECRET: ${SECRET}
+
 UI_APP_URL: http://localhost:4200
